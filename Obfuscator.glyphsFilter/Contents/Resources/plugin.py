@@ -11,7 +11,7 @@
 #
 ###########################################################################################################
 
-
+from GlyphsApp import *
 from GlyphsApp.plugins import *
 
 class Obfuscator(FilterWithoutDialog):
@@ -29,7 +29,13 @@ class Obfuscator(FilterWithoutDialog):
 
 		fuente = layer.parent.parent
 		layerId = layer.layerId
-
+		glyph = fuente.glyphs[character]
+		if glyph is None:
+			if inEditView:
+				Message("Missing Glyph", "Please add a glyph with the name: \"%s\" or set the correct name in the Filter parameter" % character)
+			else:
+				print "Obfuscator: Please add a glyph with the name: \"%s\" or set the correct name in the Filter parameter" % character
+			return
 		layerOrigen = fuente.glyphs[character].layers[layerId]
 		LSBOrigen = layerOrigen.LSB
 		RSBOrigen = layerOrigen.RSB
