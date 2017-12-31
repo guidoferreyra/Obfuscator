@@ -19,13 +19,13 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>UpdateFeedURL</key>
 	<string>https://raw.githubusercontent.com/guidoferreyra/Obfuscator/master/Obfuscator.glyphsFilter/Contents/Info.plist</string>
 	<key>productPageURL</key>
 	<string>https://github.com/guidoferreyra/Obfuscator</string>
 	<key>productReleaseNotes</key>
-	<string>Initial Release</string>
+	<string>Added Error reporting thanks @schriftgestalt</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright, Guido Ferreyra, 2016</string>
 	<key>NSPrincipalClass</key>
