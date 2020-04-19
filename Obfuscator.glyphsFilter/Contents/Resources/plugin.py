@@ -1,4 +1,5 @@
 # encoding: utf-8
+from __future__ import division, print_function, unicode_literals
 
 ###########################################################################################################
 #
@@ -11,15 +12,24 @@
 #
 ###########################################################################################################
 
+import objc
 from GlyphsApp import *
 from GlyphsApp.plugins import *
 
 class Obfuscator(FilterWithoutDialog):
 	
+	@objc.python_method
 	def settings(self):
-		self.menuName = Glyphs.localize({'en': u'Obfuscator', 'de': u'Obfuscator'})
+		self.menuName = Glyphs.localize({
+			'en': u'Obfuscator',
+			'de': u'Verschleiern',
+			'es': u'Ofuscar',
+			'fr': u'Brouiller',
+			'pt': u'Ofuscar',
+		})
 		self.keyboardShortcut = None # keyboard Shortcut
 
+	@objc.python_method
 	def filter(self, layer, inEditView, customParameters):
 
 		if len(customParameters) !=0:
@@ -28,35 +38,40 @@ class Obfuscator(FilterWithoutDialog):
 			character = 'apple'
 
 		fuente = layer.parent.parent
-		layerId = layer.layerId
-		glyph = fuente.glyphs[character]
-		if glyph is None:
+		glyphOrigen = fuente.glyphs[character]
+		if glyphOrigen is None:
+			msg="Please add a glyph with the name: \"%s\" or set the correct name in the Filter parameter" % character
 			if inEditView:
-				Message("Missing Glyph", "Please add a glyph with the name: \"%s\" or set the correct name in the Filter parameter" % character)
+				Message(title="Missing Glyph", message=msg)
 			else:
-				print "Obfuscator: Please add a glyph with the name: \"%s\" or set the correct name in the Filter parameter" % character
+				print("Filter ‘%s’: %s" % (self.menuName, msg))
 			return
-		layerOrigen = fuente.glyphs[character].layers[layerId]
-		LSBOrigen = layerOrigen.LSB
-		RSBOrigen = layerOrigen.RSB
-
-		pathsOrigen = []
-		for path in layerOrigen.paths:
-			pathsOrigen.append(path)
+			
+		# find origin layer:
+		layerOrigen = glyphOrigen.layers[layer.layerId]
+		if layerOrigen is None:
+			layerOrigen = glyphOrigen.layers[layer.master.id]
 		
-		if layer.paths:
-			for i in range( len( layer.paths ))[::-1]:
-				del layer.paths[i]
-		elif layer.components:
-			for i in range( len( layer.components ))[::-1]:
-				del layer.components[i]
+		# delete contents of target layer:
+		layer.clear()
 
-		for newPath in pathsOrigen:
-			layer.paths.append(newPath)
+		# duplicate shapes into target layer:
+		try:
+			# GLYPHS 3
+			for newShape in layerOrigen.shapes:
+				layer.shapes.append(newShape.copy())
+		except:
+			# GLYPHS 2
+			for newPath in layerOrigen.paths:
+				layer.paths.append(newPath.copy())
 		
-		layer.LSB = LSBOrigen
-		layer.RSB = RSBOrigen
+		# copy spacing and (group) kerning:
+		layer.width = layerOrigen.width
+		glyph = layer.parent
+		glyph.leftKerningGroup = glyphOrigen.leftKerningGroup
+		glyph.rightKerningGroup = glyphOrigen.rightKerningGroup
 	
+	@objc.python_method
 	def __file__(self):
 		"""Please leave this method unchanged"""
 		return __file__
