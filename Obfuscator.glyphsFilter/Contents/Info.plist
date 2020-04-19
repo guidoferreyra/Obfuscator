@@ -13,15 +13,15 @@
 	<key>CFBundleName</key>
 	<string>Obfuscator</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0</string>
+	<string>2.0.1</string>
 	<key>UpdateFeedURL</key>
 	<string>https://raw.githubusercontent.com/guidoferreyra/Obfuscator/master/Obfuscator.glyphsFilter/Contents/Info.plist</string>
 	<key>productPageURL</key>
 	<string>https://github.com/guidoferreyra/Obfuscator</string>
 	<key>productReleaseNotes</key>
-	<string>Glyphs 3 compatibility</string>
+	<string>Default to built-in .notdef</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright, Guido Ferreyra, 2016</string>
 	<key>NSPrincipalClass</key>
