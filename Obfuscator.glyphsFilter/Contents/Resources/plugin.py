@@ -49,6 +49,8 @@ class Obfuscator(FilterWithoutDialog):
 
 	@objc.python_method
 	def filter(self, layer, inEditView, customParameters):
+		if layer.master.font.customParameters['obfuscatorDisabled'] == 'True':
+			return None
 
 		if len(customParameters) !=0:
 			character = customParameters['char']
