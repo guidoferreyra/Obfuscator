@@ -65,7 +65,7 @@ class Obfuscator(FilterWithoutDialog):
 				Glyphs.clearLog()
 				Glyphs.showMacroWindow()
 			msg="Could not find a glyph with the name: ‘%s’. Defaulting to built-in .notdef." % character
-			print("Filter ‘%s’: %s" % (self.menuName, msg))
+			print("Filter ‘Obfuscator’: %s" % msg) # self.menuName throws an error: 'Obfuscator' object has no attribute 'menuName'
 			# fallback .notdef:
 			layerOrigen = self.notdefLayer()
 		else:
