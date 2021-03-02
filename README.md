@@ -1,19 +1,19 @@
 Obfuscator
 ==============
-This Glyphs app filter replaces glyphs for another one in the font. Useful for replace glyphs in demo version of a font.
+This Glyphs app filter replaces glyphs for another one in the font. Can be useful to replace glyphs for a demo version of a font.
 
 ### How to use:
-Use it as a custom paramenter in an instance or in a .glyphsproject file.
+Use it as a custom paramenter in an **instance** or in a .glyphsproject file.
 
 ```
 Property: Filter 
 Value: Obfuscator; char:.notdef; include:A,B,C;
 ```
 
-After `char:` you can define the glyph name you want to use as a replacement. If `char:` is not declared it will use the `apple` character.
-`include:` is what glyphs you want to replace. Also, instead of `include:` you can use `exclude:` to apply the filter to all the glyphs in the font excepting the listeds. 
+After `char:` you can define the glyph name you want to use as a replacement. If `char:` is not declared it will use the `.notdef` glyph.
+`include:` is what glyphs you want to replace. Also, instead of `include:` you can use `exclude:` to apply the filter to all the glyphs in the font excepting the listd ones. 
 
-If it is used via the menu **Filter>Obfuscator** it will replace the selected glyphs for the `apple` character.
+If it is used via the menu **Filter>Obfuscator** it will replace the selected glyphs for the `.notdef` glyph.
 
 ### Installation:
 Download the plugin, open it and restart glyphs.
